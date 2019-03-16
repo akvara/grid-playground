@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { compose } from 'recompose';
 import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
-import ListItem from './TickerDisplay';
-import { bourses, tickers } from './config/tickers';
-import { Grid } from '@material-ui/core';
-import TickerDisplay from './TickerDisplay';
+import Colors from './components/Colors';
 
 export interface AppProps {}
 
@@ -19,6 +16,7 @@ const styles = () =>
         boxSizing: 'border-box',
       },
       body: {
+        // backgroundColor: 'white',
         backgroundColor: '#282c34',
         minHeight: '100vh',
         display: 'flex',
@@ -34,54 +32,15 @@ const styles = () =>
       html: {
         height: '100%',
       },
-      // body: {
-      //   color: theme.color.font.dark,
-      //   fontFamily: theme.font.family,
-      //   backgroundColor: theme.color.grey.lightest,
-      //   minWidth: 1024,
-      //   height: '100%',
-      //   margin: 0,
-      // },
-    } as any,
-    mainContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      overflowY: 'hidden',
-      height: '100%',
-      margin: '80px',
     },
+    appContainer: { display: 'flex', height: '100%' },
   });
 
 const App: React.FunctionComponent<AppPrivateProps> = (props) => {
   const { classes } = props;
   return (
-    <div>
-      <div className={classes.mainContainer}>
-        <Grid container direction="row">
-          {bourses.map((bourse, bidx) => (
-            <Grid item>
-              <Grid container direction="column">
-                {tickers
-                  .filter((ticker) => ticker.substr(-1) === bourse)
-                  .sort()
-                  .map((ticker, tidx) => (
-                    <Grid key={tidx} item>
-                      {<TickerDisplay ticker={ticker.substr(0, 3)} />}
-                    </Grid>
-                  ))}
-              </Grid>
-            </Grid>
-          ))}
-        </Grid>
-        <Grid container direction="column">
-          {/*<Grid item>*/}
-            <TickerDisplay ticker="FIN" label="INVL Asset Management" />
-          {/*</Grid>*/}
-          <Grid item>
-            <TickerDisplay ticker="" label="All" />
-          </Grid>
-        </Grid>
-      </div>
+    <div className={classes.appContainer}>
+      <Colors />
     </div>
   );
 };

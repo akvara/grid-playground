@@ -1,0 +1,22 @@
+export const bourses = ['L', 'R', 'T'];
+export const tickers = [
+  'AMG1L',
+  'AUG1L',
+  'GRG1L',
+  'LGD1L',
+  'LNR1L',
+  'TEL1L',
+  'ZMP1L',
+  'GZE1R',
+  'BAL1R',
+  'GRD1R',
+  'OLF1R',
+  'VSS1R',
+  'SAF1R',
+  'TAL1T',
+  'SFG1T',
+  'TKM1T',
+  'TVEAT',
+  'TSM1T',
+  'HAE1T',
+];

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { compose } from 'recompose';
 import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
-import Colors from './components/Colors';
-import Numbers from './components/Numbers';
+import Colors from '../Form/components/Colors';
+import Numbers from '../Form/components/Numbers';
 
 export interface AppProps {}
 
@@ -37,7 +37,7 @@ const styles = () =>
     appContainer: { display: 'flex', height: '100%' },
   });
 
-const App: React.FunctionComponent<AppPrivateProps> = (props) => {
+const GridPlayground: React.FunctionComponent<AppPrivateProps> = (props) => {
   const { classes } = props;
   return (
     <div className={classes.appContainer}>
@@ -47,4 +47,4 @@ const App: React.FunctionComponent<AppPrivateProps> = (props) => {
   );
 };
 
-export default compose<AppPrivateProps, AppProps>(withStyles(styles))(App);
+export default compose<AppPrivateProps, AppProps>(withStyles(styles))(GridPlayground);

@@ -4,7 +4,7 @@ import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
 import Ramp from './Ramp';
-import { colors } from '../config/constants';
+import { colors } from '../../../config/constants';
 
 export interface ColorsProps {}
 

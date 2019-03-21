@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { compose } from 'recompose';
 
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
-import { border, transition } from '../style/theme/themeUtils';
+import { border, transition } from '../../GridPlayground/style/theme/themeUtils';
 
 export interface RampProps {
   color: string;

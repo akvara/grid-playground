@@ -1,6 +1,6 @@
 {
-  "name": "akvaranews",
-  "version": "1.03.04",
+  "name": "grid-playground",
+  "version": "1.03.21",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",

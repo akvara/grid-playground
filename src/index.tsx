@@ -1,25 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { deepOrange } from '@material-ui/core/colors';
 
-
-import Form from './branches/Form/Form';
+import ThemeChangerRoot from './branches/ThemeChanger';
 import GridPlayground from './branches/GridPlayground/GridPlayground';
-
-
-const theme = createMuiTheme({
-  palette: {
-    primary: deepOrange,
-  },
-});
+import FormWithState from './branches/FormWithState';
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
-    <Form />
-    {/*<GridPlayground />*/}
-  </MuiThemeProvider>,
+  <ThemeChangerRoot />,
+  // <GridPlayground />,
+  // <FormWithState />,
   document.getElementById('root'),
 );
 

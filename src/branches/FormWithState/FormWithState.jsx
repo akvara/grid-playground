@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 
-import Typography from '@material-ui/core/Typography';
 import {
+  Typography,
   Button,
   IconButton,
   List,
@@ -28,7 +28,7 @@ const styles = {
   },
 };
 
-const Form = ({ classes, title, exercises, setValue, handleCreate, handleDelete }) => {
+const FormWithState = ({ classes, title, exercises, setValue, handleCreate, handleDelete }) => {
   return (
     <Paper className={classes.root}>
       <Typography variant="display1" align="center" gutterBottom>
@@ -77,4 +77,4 @@ export default compose(
       }
     },
   }),
-)(Form);
+)(FormWithState);

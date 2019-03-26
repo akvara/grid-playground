@@ -7,9 +7,9 @@ import GridPlayground from './branches/GridPlayground/GridPlayground';
 import FormWithState from './branches/FormWithState';
 
 ReactDOM.render(
-  <ThemeChangerRoot />,
+  // <ThemeChangerRoot />,
   // <GridPlayground />,
-  // <FormWithState />,
+  <FormWithState />,
   document.getElementById('root'),
 );
 

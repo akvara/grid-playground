@@ -2,25 +2,22 @@ import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 
 import {
-  Fab,
-  Grid,
-  IconButton,
-  TextField,
-  Typography,
   Card,
+  CardContent,
+  CardHeader,
+  IconButton,
   List,
   ListItem,
-  ListItemText,
   ListItemIcon,
+  ListItemText,
+  TextField,
 } from '@material-ui/core';
 import {
   Add as AddIcon,
   ArrowBack as ArrowBackIcon,
   Check as CheckIcon,
-  Cancel as CancelIcon,
-  Edit as EditIcon,
   Delete as DeleteIcon,
-  Book,
+  Edit as EditIcon,
 } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -46,48 +43,11 @@ const styles = {
   },
 };
 
-const OldGridView = ({ classes, recipeItem, recipeArray, setValue, handleAppendItem, handleBackspace }) => {
-  const isWithData = recipeArray.length > 0;
-  return (
-    <Grid item container>
-      <Grid item xs={3} className={classes.actionsBlock}>
-        {!isWithData && (
-          <IconButton color="primary">
-            <CancelIcon />
-          </IconButton>
-        )}
-        {isWithData && (
-          <Fab color="primary" size="small">
-            <CheckIcon />
-          </Fab>
-        )}
-      </Grid>
-      <Grid item xs={9}>
-        <Typography variant="body2" align="center" gutterBottom>
-          {recipeArray.join(' + ')}
-          {isWithData && (
-            <IconButton color="primary" onClick={handleBackspace}>
-              <ArrowBackIcon />
-            </IconButton>
-            // <Fab size="small" type="submit" color="primary">
-            //   <AddIcon />
-            // </Fab>
-          )}
-          <TextField
-            name="recipeItem"
-            className={classes.recipeInput}
-            value={recipeItem}
-            onChange={setValue}
-            margin="normal"
-          />
-          <IconButton color="primary" onClick={handleAppendItem}>
-            <AddIcon />
-          </IconButton>
-        </Typography>
-      </Grid>
-    </Grid>
-  );
-};
+const LINE_SEPARATOR = '[|]';
+const ITEM_SEPARATOR = '[+]';
+const initialArray = [['20gr top 9N', '2gr col 5BG'], ['top 10V']];
+const recipeToString = (recipe) => recipe.map((item) => item.join(ITEM_SEPARATOR)).join(LINE_SEPARATOR);
+const stringToRecipe = (str) => str.split(LINE_SEPARATOR).map((item) => item.split(ITEM_SEPARATOR));
 
 const LineShow = ({ recipeLine, idx, handleSetItemOnEdit }) => (
   <ListItem key={idx}>
@@ -162,28 +122,31 @@ const VitaneleForm = ({
 }) => {
   return (
     <Card className={classes.rootCard}>
-      <List>
-        {recipeArray.map((id, idx) => (
-          <React.Fragment key={idx}>
-            {idx !== itemOnEdit && (
-              <LineShow idx={idx} recipeLine={recipeArray[idx]} handleSetItemOnEdit={handleSetItemOnEdit} />
-            )}
-            {idx === itemOnEdit && (
-              <LineEdit
-                idx={idx}
-                classes={classes}
-                recipeLine={recipeArray[idx]}
-                recipeItem={recipeItem}
-                setValue={setValue}
-                handleBackspace={handleBackspace}
-                handleAppendItem={handleAppendItem}
-                handleAcceptLine={handleAcceptLine}
-              />
-            )}
-          </React.Fragment>
-        ))}
-        {itemOnEdit === -1 && <LineAdd idx={recipeArray.length} handleAddNewLine={handleAddNewLine} />}
-      </List>
+      <CardHeader title={recipeToString(recipeArray)} />
+      <CardContent>
+        <List>
+          {recipeArray.map((id, idx) => (
+            <React.Fragment key={idx}>
+              {idx !== itemOnEdit && (
+                <LineShow idx={idx} recipeLine={recipeArray[idx]} handleSetItemOnEdit={handleSetItemOnEdit} />
+              )}
+              {idx === itemOnEdit && (
+                <LineEdit
+                  idx={idx}
+                  classes={classes}
+                  recipeLine={recipeArray[idx]}
+                  recipeItem={recipeItem}
+                  setValue={setValue}
+                  handleBackspace={handleBackspace}
+                  handleAppendItem={handleAppendItem}
+                  handleAcceptLine={handleAcceptLine}
+                />
+              )}
+            </React.Fragment>
+          ))}
+          {itemOnEdit === -1 && <LineAdd idx={recipeArray.length} handleAddNewLine={handleAddNewLine} />}
+        </List>
+      </CardContent>
     </Card>
   );
 };
@@ -191,8 +154,8 @@ const VitaneleForm = ({
 export default compose(
   withStyles(styles),
   withState('recipeItem', 'setRecipeItem', ''),
-  withState('recipeArray', 'setRecipeArray', [[]]),
-  withState('itemOnEdit', 'setItemOnEdit', 0),
+  withState('recipeArray', 'setRecipeArray', stringToRecipe(recipeToString(initialArray))),
+  withState('itemOnEdit', 'setItemOnEdit', initialArray[0].length > 0 ? -1 : 0),
   withHandlers({
     setValue: ({ setRecipeItem }) => ({ target: { value } }) => setRecipeItem(value),
     handleSetItemOnEdit: ({ setItemOnEdit }) => (idx) => setItemOnEdit(idx),

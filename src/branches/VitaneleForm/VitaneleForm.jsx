@@ -5,13 +5,11 @@ import {
   Fab,
   Grid,
   IconButton,
-  Paper,
   TextField,
   Typography,
   Card,
   List,
   ListItem,
-  ListItemSecondaryAction,
   ListItemText,
   ListItemIcon,
 } from '@material-ui/core';
@@ -22,6 +20,7 @@ import {
   Cancel as CancelIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
+  Book,
 } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -47,7 +46,7 @@ const styles = {
   },
 };
 
-const OldGridView = ({ classes, recipeItem, recipeArray, setValue, handleCreate, handleDelete }) => {
+const OldGridView = ({ classes, recipeItem, recipeArray, setValue, handleAppendItem, handleBackspace }) => {
   const isWithData = recipeArray.length > 0;
   return (
     <Grid item container>
@@ -67,7 +66,7 @@ const OldGridView = ({ classes, recipeItem, recipeArray, setValue, handleCreate,
         <Typography variant="body2" align="center" gutterBottom>
           {recipeArray.join(' + ')}
           {isWithData && (
-            <IconButton color="primary" onClick={handleDelete}>
+            <IconButton color="primary" onClick={handleBackspace}>
               <ArrowBackIcon />
             </IconButton>
             // <Fab size="small" type="submit" color="primary">
@@ -81,7 +80,7 @@ const OldGridView = ({ classes, recipeItem, recipeArray, setValue, handleCreate,
             onChange={setValue}
             margin="normal"
           />
-          <IconButton color="primary" onClick={handleCreate}>
+          <IconButton color="primary" onClick={handleAppendItem}>
             <AddIcon />
           </IconButton>
         </Typography>
@@ -118,21 +117,20 @@ const LineEdit = ({
   recipeLine,
   recipeItem,
   setValue,
-  handleDelete,
-  handleCreate,
-  handleSetItemOnEdit,
-                    handleAddNewLine,
+  handleBackspace,
+  handleAppendItem,
+  handleAcceptLine,
 }) => (
   <ListItem key={idx}>
     <ListItemIcon>
-      <IconButton color="primary" onClick={() => handleSetItemOnEdit(-1)}>
+      <IconButton color="primary" onClick={handleAcceptLine}>
         {recipeLine.length > 0 ? <CheckIcon /> : <DeleteIcon />}
       </IconButton>
     </ListItemIcon>
     <ListItemText>
       {recipeLine.join(' + ')}
       {recipeLine.length > 0 && (
-        <IconButton color="primary" onClick={handleDelete}>
+        <IconButton color="primary" onClick={handleBackspace}>
           <ArrowBackIcon />
         </IconButton>
       )}
@@ -143,32 +141,30 @@ const LineEdit = ({
         onChange={setValue}
         margin="normal"
       />
-      <IconButton color="primary" onClick={handleCreate}>
+      <IconButton color="primary" onClick={handleAppendItem}>
         <AddIcon />
       </IconButton>
     </ListItemText>
   </ListItem>
 );
 
-const FormWithState = ({
+const VitaneleForm = ({
   classes,
   recipeItem,
   recipeArray,
   itemOnEdit,
   setValue,
-  handleCreate,
-  handleDelete,
+  handleAppendItem,
+  handleBackspace,
   handleSetItemOnEdit,
-                         handleAddNewLine
+  handleAddNewLine,
+  handleAcceptLine,
 }) => {
-  console.log('-****- itemOnEdit', itemOnEdit);
-  console.log('-****- recipeArray', recipeArray);
-
   return (
     <Card className={classes.rootCard}>
       <List>
         {recipeArray.map((id, idx) => (
-          <>
+          <React.Fragment key={idx}>
             {idx !== itemOnEdit && (
               <LineShow idx={idx} recipeLine={recipeArray[idx]} handleSetItemOnEdit={handleSetItemOnEdit} />
             )}
@@ -179,12 +175,12 @@ const FormWithState = ({
                 recipeLine={recipeArray[idx]}
                 recipeItem={recipeItem}
                 setValue={setValue}
-                handleDelete={handleDelete}
-                handleCreate={handleCreate}
-                handleSetItemOnEdit={handleSetItemOnEdit}
+                handleBackspace={handleBackspace}
+                handleAppendItem={handleAppendItem}
+                handleAcceptLine={handleAcceptLine}
               />
             )}
-          </>
+          </React.Fragment>
         ))}
         {itemOnEdit === -1 && <LineAdd idx={recipeArray.length} handleAddNewLine={handleAddNewLine} />}
       </List>
@@ -200,7 +196,7 @@ export default compose(
   withHandlers({
     setValue: ({ setRecipeItem }) => ({ target: { value } }) => setRecipeItem(value),
     handleSetItemOnEdit: ({ setItemOnEdit }) => (idx) => setItemOnEdit(idx),
-    handleDelete: ({ setRecipeArray, recipeArray, itemOnEdit }) => () =>
+    handleBackspace: ({ setRecipeArray, recipeArray, itemOnEdit }) => () =>
       setRecipeArray(
         recipeArray.map((item, idx) => (idx === itemOnEdit ? recipeArray[idx].slice(0, -1) : recipeArray[idx])),
       ),
@@ -208,8 +204,11 @@ export default compose(
       setItemOnEdit(recipeArray.length);
       setRecipeArray([...recipeArray, []]);
     },
-
-    handleCreate: ({ setRecipeItem, setRecipeArray, itemOnEdit, recipeItem, recipeArray }) => () => {
+    handleAcceptLine: ({ setRecipeArray, setItemOnEdit, recipeArray }) => () => {
+      setItemOnEdit(-1);
+      setRecipeArray(recipeArray.filter((item) => item.length > 0));
+    },
+    handleAppendItem: ({ setRecipeItem, setRecipeArray, itemOnEdit, recipeItem, recipeArray }) => () => {
       setRecipeItem('');
       if (recipeItem) {
         setRecipeArray(
@@ -218,4 +217,4 @@ export default compose(
       }
     },
   }),
-)(FormWithState);
+)(VitaneleForm);

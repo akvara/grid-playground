@@ -8,10 +8,10 @@ import FormWithState from './branches/FormWithState';
 import VitaneleForm from './branches/VitaneleForm';
 
 ReactDOM.render(
-  // <ThemeChangerRoot />,
   // <GridPlayground />,
   // <FormWithState />,
-  <VitaneleForm />,
+  // <VitaneleForm />,
+  <ThemeChangerRoot />,
   document.getElementById('root'),
 );
 

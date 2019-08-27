@@ -26,7 +26,7 @@ const Colors: React.FunctionComponent<ColorsPrivateProps> = (props) => {
         <Grid
           container
           direction="row"
-          spacing={16}
+          spacing={8}
           alignContent="center"
           justify="space-between"
           className={classes.rampWrapper}

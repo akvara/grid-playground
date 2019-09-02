@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { compose } from 'recompose';
 import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
-import Colors from './components/Colors';
+// import Colors from './components/Colors';
 import Numbers from './components/Numbers';
 
 export interface AppProps {}

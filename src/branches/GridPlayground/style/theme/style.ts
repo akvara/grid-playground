@@ -167,7 +167,6 @@ function createMyTheme(options: MyThemeOptions) {
       },
     },
     typography: {
-      useNextVariants: true,
       fontFamily: Font.family,
       h5: {
         fontSize: '1.25rem',

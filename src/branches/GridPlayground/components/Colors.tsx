@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { compose } from 'recompose';
+
 import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
@@ -26,13 +27,13 @@ const Colors: React.FunctionComponent<ColorsPrivateProps> = (props) => {
         <Grid
           container
           direction="row"
-          spacing={16}
+          spacing={4}
           alignContent="center"
           justify="space-between"
           className={classes.rampWrapper}
         >
-          {colors.map((color) => (
-            <Grid item xs={3}>
+          {colors.map((color, idx) => (
+            <Grid item xs={3} key={idx}>
               <Ramp color={color} isSelected={false} onRampClick={() => alert('Click!')} />
             </Grid>
           ))}

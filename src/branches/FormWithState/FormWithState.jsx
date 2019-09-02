@@ -31,7 +31,7 @@ const styles = {
 const FormWithState = ({ classes, title, exercises, setValue, handleCreate, handleDelete }) => {
   return (
     <Paper className={classes.root}>
-      <Typography variant="display1" align="center" gutterBottom>
+      <Typography variant="body1" align="center" gutterBottom>
         Exercises
       </Typography>
       <form className={classes.form} onSubmit={handleCreate}>
@@ -46,7 +46,7 @@ const FormWithState = ({ classes, title, exercises, setValue, handleCreate, hand
             <ListItemText primary={title} />
             <ListItemSecondaryAction>
               <IconButton color="primary" onClick={() => handleDelete(id)}>
-                <Delete />{' '}
+                <Delete />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>

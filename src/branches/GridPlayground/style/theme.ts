@@ -5,7 +5,4 @@ export const theme = createMuiTheme({
   palette: {
     primary: teal,
   },
-  typography: {
-    useNextVariants: true,
-  },
 });

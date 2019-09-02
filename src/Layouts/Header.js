@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 
 const Header = (props) => (
-  <Typography variant="display1" align="center" gutterBottom>
+  <Typography variant="body1" align="center" gutterBottom>
     Header
   </Typography>
 );

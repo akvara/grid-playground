@@ -13,21 +13,25 @@ const flex = {
   justifyContent: 'space-evenly',
 };
 
-const styles = ({ spacing: { unit } }) => ({
+const styles = (theme) => {
+
+  // console.log('-****- theme', theme);
+
+  return {
   root: {
-    margin: `${unit * 3}px auto`,
-    padding: unit * 2,
+    margin: `${theme.spacing(3)}px auto`,
+    padding: theme.spacing(2),
     maxWidth: 400,
   },
   header: {
     ...flex,
-    marginTop: unit * 2,
+    marginTop: theme.spacing(2),
   },
   form: {
     ...flex,
-    marginBottom: unit,
+    marginBottom: theme.spacing(1),
   },
-});
+}};
 
 const ThemeChangerApp = (props) => {
   const { classes } = props;

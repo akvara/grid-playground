@@ -15,7 +15,7 @@ export default class AppProvider extends Component {
   render() {
     const {
       state,
-      state: { type, color, unit },
+      state: { type, color, spacing },
       handleConfigVarChange,
     } = this;
 
@@ -24,9 +24,7 @@ export default class AppProvider extends Component {
         type,
         primary: colors[color],
       },
-      spacing: {
-        unit,
-      },
+      spacing
     });
 
     return (

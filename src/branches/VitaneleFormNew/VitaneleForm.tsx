@@ -6,13 +6,11 @@ import {
   ButtonGroup,
   Card,
   CardContent,
-  // CardHeader, Hidden,
   IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  // Paper,
   TextField,
 } from '@material-ui/core';
 import { Add as AddIcon, Cancel as CancelIcon, Check as CheckIcon, Edit as EditIcon } from '@material-ui/icons';
@@ -147,6 +145,21 @@ const LineEdit = ({
   </>
 );
 
+interface VitaneleFormHandlers {
+  setValue: ({ target: { value } }: any) => void;
+  setLineOnEditHandler: (idx: number) => void;
+  acceptLineHandler: () => void;
+  cancelEditHandler: () => void;
+  newLineHandler: () => void;
+  addTextHandler: (text: string) => void;
+}
+
+interface VitaneleFormStateHandlers {
+  setLineOnEdit: (idx: number) => void;
+  setRecipeLine: (text: string) => void;
+  setRecipeArray: (arr: string[]) => void;
+}
+
 const VitaneleForm = ({
   classes,
   recipeItem,
@@ -167,7 +180,7 @@ const VitaneleForm = ({
     <Card className={classes.rootCard}>
       {/*<CardHeader title={recipeLinesToString(recipeLinesArray)}  />*/}
       {/*<Hidden xsDown>*/}
-        {/*<Paper className={classes.paper}>{recipeLinesToString(recipeLinesArray)}</Paper>*/}
+      {/*<Paper className={classes.paper}>{recipeLinesToString(recipeLinesArray)}</Paper>*/}
       {/*</Hidden>*/}
       <CardContent>
         <List>
@@ -196,33 +209,35 @@ const VitaneleForm = ({
   );
 };
 
+const normaliseLine = (str: string) => str.replace(/\+/g, ' + ').replace(/\s+/g, ' ');
+
 export default compose(
   withStyles(styles),
   withState('lineOnEdit', 'setLineOnEdit', -1),
   withState('recipeLine', 'setRecipeLine', ''),
   withState('recipeLinesArray', 'setRecipeArray', stringToRecipeLines(recipeLinesToString(initialArray))),
-  withHandlers({
-    setValue: ({ setRecipeLine }: any) => ({ target: { value } }: any) => setRecipeLine(value),
-    setLineOnEditHandler: ({ setLineOnEdit, setRecipeLine, recipeLinesArray }: any) => (idx: number) => {
+  withHandlers<any, VitaneleFormHandlers>({
+    setValue: ({ setRecipeLine }: any) => ({ target: { value } }) => setRecipeLine(value),
+    setLineOnEditHandler: ({ setLineOnEdit, setRecipeLine, recipeLinesArray }) => (idx: number) => {
       setRecipeLine(recipeLinesArray[idx]);
       setLineOnEdit(idx);
     },
-    acceptLineHandler: ({ setRecipeArray, setLineOnEdit, lineOnEdit, recipeLine, recipeLinesArray }: any) => () => {
+    acceptLineHandler: ({ setRecipeArray, setLineOnEdit, lineOnEdit, recipeLine, recipeLinesArray }) => () => {
       setLineOnEdit(-1);
-      recipeLinesArray[lineOnEdit] = recipeLine;
+      recipeLinesArray[lineOnEdit] = normaliseLine(recipeLine);
       setRecipeArray(recipeLinesArray.filter((item: string) => item.length > 0));
     },
-    cancelEditHandler: ({ setRecipeArray, setLineOnEdit, recipeLinesArray }: any) => () => {
+    cancelEditHandler: ({ setRecipeArray, setLineOnEdit, recipeLinesArray }) => () => {
       setLineOnEdit(-1);
       setRecipeArray(recipeLinesArray.filter((item: string) => item.length > 0));
     },
-    newLineHandler: ({ setRecipeArray, setLineOnEdit, recipeLinesArray }: any) => () => {
+    newLineHandler: ({ setRecipeArray, setLineOnEdit, recipeLinesArray }) => () => {
       setLineOnEdit(recipeLinesArray.length);
       setRecipeArray([...recipeLinesArray, []]);
     },
-    addTextHandler: ({ setRecipeLine, recipeLine }: any) => (text: string, withPlus: boolean) => {
-      const separator = recipeLine.length > 0 && withPlus ? ' + ' : '';
-      setRecipeLine(`${recipeLine}${separator}${text}`);
+    addTextHandler: ({ setRecipeLine, recipeLine }) => (text: string) => {
+      // const separator = recipeLine.length > 0 && withPlus ? ' + ' : '';
+      setRecipeLine(`${recipeLine}${text}`);
     },
   }),
 )(VitaneleForm);

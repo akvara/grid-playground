@@ -6,17 +6,17 @@ import {
   ButtonGroup,
   Card,
   CardContent,
-  CardHeader,
+  // CardHeader, Hidden,
   IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  // Paper,
   TextField,
 } from '@material-ui/core';
 import { Add as AddIcon, Cancel as CancelIcon, Check as CheckIcon, Edit as EditIcon } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
-// import { LineShow } from './LineShow/LineShow';
 
 const styles = {
   root: {
@@ -42,7 +42,6 @@ const styles = {
 };
 
 const LINE_SEPARATOR = '[|]';
-// const ITEM_SEPARATOR = '[+]';
 
 const initialArray = [
   'TB 8sb@kg + 10V + Eliumenas R@KK10g+1G tg@MM',
@@ -75,11 +74,11 @@ const LineAdd = ({ idx, newLineHandler }: any) => (
   </ListItem>
 );
 
-const SpeedText = ({ addTextHandler, text, withPlus }: any) => (
-  <Button size="small" variant="outlined" onClick={() => addTextHandler(text, withPlus)}>
-    {text}
-  </Button>
-);
+// const SpeedText = ({ addTextHandler, text, withPlus }: any) => (
+//   <Button size="small" variant="outlined" onClick={() => addTextHandler(text, withPlus)}>
+//     {text}
+//   </Button>
+// );
 
 const LineEdit = ({
   idx,
@@ -91,36 +90,43 @@ const LineEdit = ({
   addTextHandler,
 }: any) => (
   <>
-    {/*<ListItem>*/}
-      <ButtonGroup size="small" variant="outlined">
-        <SpeedText addTextHandler={addTextHandler} text={'Eliumenas '} withPlus={true} />
-        <SpeedText addTextHandler={addTextHandler} text={'TB '} withPlus={true} />
-        <SpeedText addTextHandler={addTextHandler} text={'Color.'} withPlus={true} />
-        <SpeedText addTextHandler={addTextHandler} text={'Piur pigment'} withPlus={true} />
-        <SpeedText addTextHandler={addTextHandler} text={'lašai'} withPlus={true} />
-        <SpeedText addTextHandler={addTextHandler} text={'violet.'} withPlus={true} />
-        <SpeedText addTextHandler={addTextHandler} text={'orang.'} withPlus={true} />
-        <SpeedText addTextHandler={addTextHandler} text={'g.'} />
-        <SpeedText addTextHandler={addTextHandler} text={'kg'} />
-        <SpeedText addTextHandler={addTextHandler} text={' + '} />
-        <SpeedText addTextHandler={addTextHandler} text={'@'} />
-      </ButtonGroup>
     <ButtonGroup size="small" variant="outlined">
-      <SpeedText addTextHandler={addTextHandler} text={'0'} />
-      <SpeedText addTextHandler={addTextHandler} text={'1'} />
-      <SpeedText addTextHandler={addTextHandler} text={'2'} />
-      <SpeedText addTextHandler={addTextHandler} text={'3'} />
-      <SpeedText addTextHandler={addTextHandler} text={'4'} />
-      <SpeedText addTextHandler={addTextHandler} text={'5'} />
-      <SpeedText addTextHandler={addTextHandler} text={'6'} />
-      <SpeedText addTextHandler={addTextHandler} text={'7'} />
-      <SpeedText addTextHandler={addTextHandler} text={'8'} />
-      <SpeedText addTextHandler={addTextHandler} text={'9'} />
-
+      <Button onClick={() => addTextHandler('Eliumenas ')}>Eliumenas </Button>
+      <Button onClick={() => addTextHandler('TB ')}>TB </Button>
+      <Button onClick={() => addTextHandler('Color.')}>Color.</Button>
+      <Button onClick={() => addTextHandler('šampūnas')}>šampūnas</Button>
+      <Button onClick={() => addTextHandler('Piur pigment ')}>Piur pigment</Button>
+      <Button onClick={() => addTextHandler('lašai ')}>lašai</Button>
+      <Button onClick={() => addTextHandler('violet. ')}>violet.</Button>
+      <Button onClick={() => addTextHandler('orang. ')}>orang.</Button>
     </ButtonGroup>
-
-    {/*</ListItem>*/}
-
+    <ButtonGroup size="small" variant="outlined">
+      <Button onClick={() => addTextHandler('1')}>1</Button>
+      <Button onClick={() => addTextHandler('2')}>2</Button>
+      <Button onClick={() => addTextHandler('3')}>3</Button>
+      <Button onClick={() => addTextHandler('4')}>4</Button>
+      <Button onClick={() => addTextHandler('5')}>5</Button>
+      <Button onClick={() => addTextHandler('6')}>6</Button>
+      <Button onClick={() => addTextHandler('7')}>7</Button>
+      <Button onClick={() => addTextHandler('8')}>8</Button>
+      <Button onClick={() => addTextHandler('9')}>9</Button>
+      <Button onClick={() => addTextHandler('0')}>0</Button>
+    </ButtonGroup>
+    <ButtonGroup size="small" variant="outlined">
+      <Button onClick={() => addTextHandler('@')}>@</Button>
+      <Button onClick={() => addTextHandler(' + ')}> + </Button>
+      <Button onClick={() => addTextHandler(' ')}> </Button>
+    </ButtonGroup>{' '}
+    <ButtonGroup size="small" variant="outlined">
+      <Button onClick={() => addTextHandler('V')}>V</Button>
+      <Button onClick={() => addTextHandler('g')}>g</Button>
+      <Button onClick={() => addTextHandler('kg')}>kg</Button>
+      <Button onClick={() => addTextHandler('SB')}>SB</Button>
+      <Button onClick={() => addTextHandler('R')}>R</Button>
+      <Button onClick={() => addTextHandler('KK')}>KK</Button>
+      <Button onClick={() => addTextHandler('MM')}>MM</Button>
+      <Button onClick={() => addTextHandler('TG')}>TG</Button>
+    </ButtonGroup>
     <ListItem key={idx}>
       <ListItemText>
         <TextField
@@ -159,7 +165,10 @@ const VitaneleForm = ({
 }: any) => {
   return (
     <Card className={classes.rootCard}>
-      <CardHeader title={recipeLinesToString(recipeLinesArray)} />
+      {/*<CardHeader title={recipeLinesToString(recipeLinesArray)}  />*/}
+      {/*<Hidden xsDown>*/}
+        {/*<Paper className={classes.paper}>{recipeLinesToString(recipeLinesArray)}</Paper>*/}
+      {/*</Hidden>*/}
       <CardContent>
         <List>
           {recipeLinesArray.map((line: string, idx: number) => (
@@ -208,15 +217,11 @@ export default compose(
       setRecipeArray(recipeLinesArray.filter((item: string) => item.length > 0));
     },
     newLineHandler: ({ setRecipeArray, setLineOnEdit, recipeLinesArray }: any) => () => {
-      setRecipeArray([...recipeLinesArray, []]);
       setLineOnEdit(recipeLinesArray.length);
+      setRecipeArray([...recipeLinesArray, []]);
     },
     addTextHandler: ({ setRecipeLine, recipeLine }: any) => (text: string, withPlus: boolean) => {
-      console.log('-****- withPlus', withPlus);
-      console.log('-****- recipeLine', recipeLine);
-      console.log('-****- length', recipeLine.length);
       const separator = recipeLine.length > 0 && withPlus ? ' + ' : '';
-
       setRecipeLine(`${recipeLine}${separator}${text}`);
     },
   }),

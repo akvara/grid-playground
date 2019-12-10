@@ -2,6 +2,7 @@ import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 
 import {
+  Grid,
   Button,
   ButtonGroup,
   Card,
@@ -20,22 +21,10 @@ const styles = {
   root: {
     margin: 4,
     padding: 4,
-    maxWidth: 400,
-  },
-  form: {
-    display: 'flex',
-    alignItems: 'baseline',
-    justifyContent: 'center',
-  },
-  actionsBlock: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    maxWidth: 720,
   },
   recipeInput: {
     width: '80%',
-    // minWidth: 50,
-    // maxWidth: 90,
   },
 };
 
@@ -49,6 +38,35 @@ const initialArray = [
 
 const recipeLinesToString = (recipe: string[]) => recipe.join(LINE_SEPARATOR);
 const stringToRecipeLines = (str: string) => str.split(LINE_SEPARATOR);
+interface VitaneleFormHandlers {
+  setValue: ({ target: { value } }: any) => void;
+  setLineOnEditHandler: (idx: number) => void;
+  acceptLineHandler: () => void;
+  cancelEditHandler: () => void;
+  newLineHandler: () => void;
+  addTextHandler: (text: string) => void;
+}
+
+interface VitaneleFormStateHandlers {
+  setLineOnEdit: (idx: number) => void;
+  setRecipeLine: (text: string) => void;
+  setRecipeArray: (arr: string[]) => void;
+}
+
+interface VitaneleFormState {
+  lineOnEdit: number;
+  recipeLine: string;
+  recipeLinesArray: string[];
+}
+
+
+interface VitaneleFormPrivateProps extends VitaneleFormStateHandlers, VitaneleFormHandlers, VitaneleFormState {
+  classes: any;
+}
+
+interface VitaneleFormHelpersProps extends VitaneleFormPrivateProps {
+  idx: number;
+}
 
 const LineShow = ({ recipeLine, idx, setLineOnEditHandler }: any) => (
   <ListItem key={idx}>
@@ -57,7 +75,7 @@ const LineShow = ({ recipeLine, idx, setLineOnEditHandler }: any) => (
         <EditIcon />
       </IconButton>
     </ListItemIcon>
-    <ListItemText onClick={() => setLineOnEditHandler(idx)}>{recipeLine}</ListItemText>
+    <ListItemText>{recipeLine}</ListItemText>
   </ListItem>
 );
 
@@ -87,104 +105,95 @@ const LineEdit = ({
   cancelEditHandler,
   addTextHandler,
 }: any) => (
-  <>
-    <ButtonGroup size="small" variant="outlined">
-      <Button onClick={() => addTextHandler('Eliumenas ')}>Eliumenas </Button>
-      <Button onClick={() => addTextHandler('TB ')}>TB </Button>
-      <Button onClick={() => addTextHandler('Color.')}>Color.</Button>
-      <Button onClick={() => addTextHandler('šampūnas')}>šampūnas</Button>
-      <Button onClick={() => addTextHandler('Piur pigment ')}>Piur pigment</Button>
-      <Button onClick={() => addTextHandler('lašai ')}>lašai</Button>
-      <Button onClick={() => addTextHandler('violet. ')}>violet.</Button>
-      <Button onClick={() => addTextHandler('orang. ')}>orang.</Button>
-    </ButtonGroup>
-    <ButtonGroup size="small" variant="outlined">
-      <Button onClick={() => addTextHandler('1')}>1</Button>
-      <Button onClick={() => addTextHandler('2')}>2</Button>
-      <Button onClick={() => addTextHandler('3')}>3</Button>
-      <Button onClick={() => addTextHandler('4')}>4</Button>
-      <Button onClick={() => addTextHandler('5')}>5</Button>
-      <Button onClick={() => addTextHandler('6')}>6</Button>
-      <Button onClick={() => addTextHandler('7')}>7</Button>
-      <Button onClick={() => addTextHandler('8')}>8</Button>
-      <Button onClick={() => addTextHandler('9')}>9</Button>
-      <Button onClick={() => addTextHandler('0')}>0</Button>
-    </ButtonGroup>
-    <ButtonGroup size="small" variant="outlined">
-      <Button onClick={() => addTextHandler('@')}>@</Button>
-      <Button onClick={() => addTextHandler(' + ')}> + </Button>
-      <Button onClick={() => addTextHandler(' ')}> </Button>
-    </ButtonGroup>{' '}
-    <ButtonGroup size="small" variant="outlined">
-      <Button onClick={() => addTextHandler('V')}>V</Button>
-      <Button onClick={() => addTextHandler('g')}>g</Button>
-      <Button onClick={() => addTextHandler('kg')}>kg</Button>
-      <Button onClick={() => addTextHandler('SB')}>SB</Button>
-      <Button onClick={() => addTextHandler('R')}>R</Button>
-      <Button onClick={() => addTextHandler('KK')}>KK</Button>
-      <Button onClick={() => addTextHandler('MM')}>MM</Button>
-      <Button onClick={() => addTextHandler('TG')}>TG</Button>
-    </ButtonGroup>
-    <ListItem key={idx}>
-      <ListItemText>
-        <TextField
-          name="recipeItem"
-          className={classes.recipeInput}
-          value={recipeLine}
-          onChange={setValue}
-          margin="normal"
-        />
-        <IconButton color="primary" onClick={acceptLineHandler}>
-          <CheckIcon />
-        </IconButton>
-        <IconButton color="primary" onClick={cancelEditHandler}>
-          <CancelIcon />
-        </IconButton>
-      </ListItemText>
-    </ListItem>
-  </>
+  <Grid container>
+    <Grid item xs={12}>
+      <ButtonGroup size="small" variant="outlined">
+        <Button onClick={() => addTextHandler('Eliumenas ')}>Eliumenas </Button>
+        <Button onClick={() => addTextHandler('TB ')}>TB </Button>
+        <Button onClick={() => addTextHandler('Color.')}>Color.</Button>
+        <Button onClick={() => addTextHandler('šampūnas')}>šampūnas</Button>
+        <Button onClick={() => addTextHandler('Piur pigment ')}>Piur pigment</Button>
+        <Button onClick={() => addTextHandler('lašai ')}>lašai</Button>
+        <Button onClick={() => addTextHandler('violet. ')}>violet.</Button>
+        <Button onClick={() => addTextHandler('orang. ')}>orang.</Button>
+      </ButtonGroup>
+    </Grid>
+    <Grid item xs={12}>
+      <ButtonGroup size="small" variant="outlined">
+        <Button onClick={() => addTextHandler('1')}>1</Button>
+        <Button onClick={() => addTextHandler('2')}>2</Button>
+        <Button onClick={() => addTextHandler('3')}>3</Button>
+        <Button onClick={() => addTextHandler('4')}>4</Button>
+        <Button onClick={() => addTextHandler('5')}>5</Button>
+        <Button onClick={() => addTextHandler('6')}>6</Button>
+        <Button onClick={() => addTextHandler('7')}>7</Button>
+        <Button onClick={() => addTextHandler('8')}>8</Button>
+        <Button onClick={() => addTextHandler('9')}>9</Button>
+        <Button onClick={() => addTextHandler('0')}>0</Button>
+      </ButtonGroup>
+      <ButtonGroup size="small" variant="outlined">
+        <Button onClick={() => addTextHandler('@')}>@</Button>
+        <Button onClick={() => addTextHandler(' + ')}> + </Button>
+        <Button onClick={() => addTextHandler(' ')}>{' '}</Button>
+      </ButtonGroup>{' '}
+    </Grid>
+    <Grid item xs={12}>
+      <ButtonGroup size="small" variant="outlined">
+        <Button onClick={() => addTextHandler('V')}>V</Button>
+        <Button onClick={() => addTextHandler('g')}>g</Button>
+        <Button onClick={() => addTextHandler('kg')}>kg</Button>
+        <Button onClick={() => addTextHandler('SB')}>SB</Button>
+        <Button onClick={() => addTextHandler('R')}>R</Button>
+        <Button onClick={() => addTextHandler('KK')}>KK</Button>
+        <Button onClick={() => addTextHandler('MM')}>MM</Button>
+        <Button onClick={() => addTextHandler('TG')}>TG</Button>
+      </ButtonGroup>
+    </Grid>
+    <Grid item xs={12}>
+      <ListItem key={idx}>
+        <ListItemText>
+          <TextField
+            name="recipeItem"
+            className={classes.recipeInput}
+            value={recipeLine}
+            onChange={setValue}
+            margin="normal"
+          />
+          <IconButton color="primary" onClick={acceptLineHandler}>
+            <CheckIcon />
+          </IconButton>
+          <IconButton color="primary" onClick={cancelEditHandler}>
+            <CancelIcon />
+          </IconButton>
+        </ListItemText>
+      </ListItem>
+    </Grid>
+  </Grid>
 );
 
-interface VitaneleFormHandlers {
-  setValue: ({ target: { value } }: any) => void;
-  setLineOnEditHandler: (idx: number) => void;
-  acceptLineHandler: () => void;
-  cancelEditHandler: () => void;
-  newLineHandler: () => void;
-  addTextHandler: (text: string) => void;
-}
-
-interface VitaneleFormStateHandlers {
-  setLineOnEdit: (idx: number) => void;
-  setRecipeLine: (text: string) => void;
-  setRecipeArray: (arr: string[]) => void;
-}
 
 const VitaneleForm = ({
   classes,
-  recipeItem,
   recipeLinesArray,
   lineOnEdit,
   recipeLine,
   setValue,
-  handleAppendItem,
-  handleBackspace,
   setLineOnEdit,
   setLineOnEditHandler,
   acceptLineHandler,
   cancelEditHandler,
   newLineHandler,
   addTextHandler,
-}: any) => {
+}: VitaneleFormPrivateProps) => {
   return (
-    <Card className={classes.rootCard}>
+    <Card className={classes.root}>
       {/*<CardHeader title={recipeLinesToString(recipeLinesArray)}  />*/}
       {/*<Hidden xsDown>*/}
       {/*<Paper className={classes.paper}>{recipeLinesToString(recipeLinesArray)}</Paper>*/}
       {/*</Hidden>*/}
       <CardContent>
         <List>
-          {recipeLinesArray.map((line: string, idx: number) => (
+          {recipeLinesArray.map((line, idx) => (
             <React.Fragment key={idx}>
               {idx !== lineOnEdit && (
                 <LineShow idx={idx} recipeLine={line} setLineOnEditHandler={setLineOnEditHandler} />
@@ -209,14 +218,14 @@ const VitaneleForm = ({
   );
 };
 
-const normaliseLine = (str: string) => str.replace(/\+/g, ' + ').replace(/\s+/g, ' ');
+const normalizeLine = (str: string) => str.replace(/\+/g, ' + ').replace(/\s+/g, ' ');
 
-export default compose(
+export default compose<VitaneleFormPrivateProps,{}>(
   withStyles(styles),
   withState('lineOnEdit', 'setLineOnEdit', -1),
   withState('recipeLine', 'setRecipeLine', ''),
   withState('recipeLinesArray', 'setRecipeArray', stringToRecipeLines(recipeLinesToString(initialArray))),
-  withHandlers<any, VitaneleFormHandlers>({
+  withHandlers<VitaneleFormPrivateProps, VitaneleFormHandlers>({
     setValue: ({ setRecipeLine }: any) => ({ target: { value } }) => setRecipeLine(value),
     setLineOnEditHandler: ({ setLineOnEdit, setRecipeLine, recipeLinesArray }) => (idx: number) => {
       setRecipeLine(recipeLinesArray[idx]);
@@ -224,7 +233,7 @@ export default compose(
     },
     acceptLineHandler: ({ setRecipeArray, setLineOnEdit, lineOnEdit, recipeLine, recipeLinesArray }) => () => {
       setLineOnEdit(-1);
-      recipeLinesArray[lineOnEdit] = normaliseLine(recipeLine);
+      recipeLinesArray[lineOnEdit] = normalizeLine(recipeLine);
       setRecipeArray(recipeLinesArray.filter((item: string) => item.length > 0));
     },
     cancelEditHandler: ({ setRecipeArray, setLineOnEdit, recipeLinesArray }) => () => {
@@ -233,7 +242,7 @@ export default compose(
     },
     newLineHandler: ({ setRecipeArray, setLineOnEdit, recipeLinesArray }) => () => {
       setLineOnEdit(recipeLinesArray.length);
-      setRecipeArray([...recipeLinesArray, []]);
+      setRecipeArray([...recipeLinesArray, '']);
     },
     addTextHandler: ({ setRecipeLine, recipeLine }) => (text: string) => {
       // const separator = recipeLine.length > 0 && withPlus ? ' + ' : '';

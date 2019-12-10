@@ -236,11 +236,13 @@ export default compose<VitaneleFormPrivateProps,{}>(
       recipeLinesArray[lineOnEdit] = normalizeLine(recipeLine);
       setRecipeArray(recipeLinesArray.filter((item: string) => item.length > 0));
     },
-    cancelEditHandler: ({ setRecipeArray, setLineOnEdit, recipeLinesArray }) => () => {
+    cancelEditHandler: ({ setRecipeLine, setRecipeArray, setLineOnEdit, recipeLinesArray }) => () => {
+      setRecipeLine('');
       setLineOnEdit(-1);
       setRecipeArray(recipeLinesArray.filter((item: string) => item.length > 0));
     },
     newLineHandler: ({ setRecipeArray, setLineOnEdit, recipeLinesArray }) => () => {
+      // console.log('-****- recipeLinesArray', recipeLinesArray);
       setLineOnEdit(recipeLinesArray.length);
       setRecipeArray([...recipeLinesArray, '']);
     },

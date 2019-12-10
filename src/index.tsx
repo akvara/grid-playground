@@ -2,17 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import * as serviceWorker from './serviceWorker';
-
-import ThemeChangerRoot from './branches/ThemeChanger';
 // import GridPlayground from './branches/GridPlayground/GridPlayground';
 // import FormWithState from './branches/FormWithState';
-// import VitaneleForm from './branches/VitaneleForm';
+import VitaneleForm from './branches/VitaneleFormNew';
 
 ReactDOM.render(
   // <GridPlayground />,
   // <FormWithState />,
   // <VitaneleForm />,
-  <ThemeChangerRoot />,
+  <VitaneleForm />,
   document.getElementById('root'),
 );
 

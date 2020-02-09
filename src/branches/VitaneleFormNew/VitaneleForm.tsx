@@ -2,11 +2,11 @@ import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 
 import {
-  Grid,
   Button,
   ButtonGroup,
   Card,
   CardContent,
+  Grid,
   IconButton,
   List,
   ListItem,
@@ -59,13 +59,8 @@ interface VitaneleFormState {
   recipeLinesArray: string[];
 }
 
-
 interface VitaneleFormPrivateProps extends VitaneleFormStateHandlers, VitaneleFormHandlers, VitaneleFormState {
   classes: any;
-}
-
-interface VitaneleFormHelpersProps extends VitaneleFormPrivateProps {
-  idx: number;
 }
 
 const LineShow = ({ recipeLine, idx, setLineOnEditHandler }: any) => (
@@ -106,71 +101,95 @@ const LineEdit = ({
   addTextHandler,
 }: any) => (
   <Grid container>
-    <Grid item xs={12}>
-      <ButtonGroup size="small" variant="outlined">
-        <Button onClick={() => addTextHandler('Eliumenas ')}>Eliumenas </Button>
-        <Button onClick={() => addTextHandler('TB ')}>TB </Button>
-        <Button onClick={() => addTextHandler('Color.')}>Color.</Button>
-        <Button onClick={() => addTextHandler('šampūnas')}>šampūnas</Button>
-        <Button onClick={() => addTextHandler('Piur pigment ')}>Piur pigment</Button>
-        <Button onClick={() => addTextHandler('lašai ')}>lašai</Button>
-        <Button onClick={() => addTextHandler('violet. ')}>violet.</Button>
-        <Button onClick={() => addTextHandler('orang. ')}>orang.</Button>
-      </ButtonGroup>
+    <Grid item container>
+      <Grid item xs={12}>
+        <ButtonGroup size="small" variant="outlined">
+          <Button onClick={() => addTextHandler('Elium. ')}>Elium. </Button>
+          <Button onClick={() => addTextHandler('TB ')}>TB </Button>
+          <Button onClick={() => addTextHandler('Color.')}>Color.</Button>
+          <Button onClick={() => addTextHandler('Shamp.')}>shamp.</Button>
+          <Button onClick={() => addTextHandler('drops ')}>drops</Button>
+          <Button onClick={() => addTextHandler('Pure pigm. ')}>Pure pigm.</Button>
+        </ButtonGroup>
+      </Grid>
     </Grid>
-    <Grid item xs={12}>
-      <ButtonGroup size="small" variant="outlined">
-        <Button onClick={() => addTextHandler('1')}>1</Button>
-        <Button onClick={() => addTextHandler('2')}>2</Button>
-        <Button onClick={() => addTextHandler('3')}>3</Button>
-        <Button onClick={() => addTextHandler('4')}>4</Button>
-        <Button onClick={() => addTextHandler('5')}>5</Button>
-        <Button onClick={() => addTextHandler('6')}>6</Button>
-        <Button onClick={() => addTextHandler('7')}>7</Button>
-        <Button onClick={() => addTextHandler('8')}>8</Button>
-        <Button onClick={() => addTextHandler('9')}>9</Button>
-        <Button onClick={() => addTextHandler('0')}>0</Button>
-      </ButtonGroup>
-      <ButtonGroup size="small" variant="outlined">
-        <Button onClick={() => addTextHandler('@')}>@</Button>
-        <Button onClick={() => addTextHandler(' + ')}> + </Button>
-        <Button onClick={() => addTextHandler(' ')}>{' '}</Button>
-      </ButtonGroup>{' '}
+    <Grid item container>
+      <Grid item xs={12}>
+        <ButtonGroup size="small" variant="outlined">
+          <Button onClick={() => addTextHandler('red ')}>red</Button>
+          <Button onClick={() => addTextHandler('yellow ')}>yellow</Button>
+          <Button onClick={() => addTextHandler('orang ')}>orang</Button>
+          <Button onClick={() => addTextHandler('green ')}>green</Button>
+          <Button onClick={() => addTextHandler('blue ')}>blue</Button>
+          <Button onClick={() => addTextHandler('violet ')}>violet</Button>
+          <Button onClick={() => addTextHandler('warm viol. ')}>warm viol.</Button>
+          <Button onClick={() => addTextHandler('cold viol. ')}>cold viol.</Button>
+        </ButtonGroup>
+      </Grid>
     </Grid>
-    <Grid item xs={12}>
-      <ButtonGroup size="small" variant="outlined">
-        <Button onClick={() => addTextHandler('V')}>V</Button>
-        <Button onClick={() => addTextHandler('g')}>g</Button>
-        <Button onClick={() => addTextHandler('kg')}>kg</Button>
-        <Button onClick={() => addTextHandler('SB')}>SB</Button>
-        <Button onClick={() => addTextHandler('R')}>R</Button>
-        <Button onClick={() => addTextHandler('KK')}>KK</Button>
-        <Button onClick={() => addTextHandler('MM')}>MM</Button>
-        <Button onClick={() => addTextHandler('TG')}>TG</Button>
-      </ButtonGroup>
+    <Grid item container>
+      <Grid item xs={12}>
+        <ButtonGroup size="small" variant="outlined">
+          <Button onClick={() => addTextHandler('1')}>1</Button>
+          <Button onClick={() => addTextHandler('2')}>2</Button>
+          <Button onClick={() => addTextHandler('3')}>3</Button>
+          <Button onClick={() => addTextHandler('4')}>4</Button>
+          <Button onClick={() => addTextHandler('5')}>5</Button>
+          <Button onClick={() => addTextHandler('6')}>6</Button>
+          <Button onClick={() => addTextHandler('7')}>7</Button>
+          <Button onClick={() => addTextHandler('8')}>8</Button>
+          <Button onClick={() => addTextHandler('9')}>9</Button>
+          <Button onClick={() => addTextHandler('0')}>0</Button>
+        </ButtonGroup>
+        <Grid item container>
+          <Grid item xs={12}></Grid>
+        </Grid>
+        <ButtonGroup size="small" variant="outlined">
+          <Button onClick={() => addTextHandler('%')}>%</Button>
+          <Button onClick={() => addTextHandler('@')}>@</Button>
+          <Button onClick={() => addTextHandler(' + ')}> + </Button>
+          <Button onClick={() => addTextHandler(' ')}> </Button>
+          <Button onClick={() => addTextHandler('ml')}>ml</Button>
+          <Button onClick={() => addTextHandler('g')}>g</Button>
+          <Button onClick={() => addTextHandler('kg')}>kg</Button>
+        </ButtonGroup>{' '}
+      </Grid>
     </Grid>
-    <Grid item xs={12}>
-      <ListItem key={idx}>
-        <ListItemText>
-          <TextField
-            name="recipeItem"
-            className={classes.recipeInput}
-            value={recipeLine}
-            onChange={setValue}
-            margin="normal"
-          />
-          <IconButton color="primary" onClick={acceptLineHandler}>
-            <CheckIcon />
-          </IconButton>
-          <IconButton color="primary" onClick={cancelEditHandler}>
-            <CancelIcon />
-          </IconButton>
-        </ListItemText>
-      </ListItem>
+    <Grid item container>
+      <Grid item xs={12}>
+        <ButtonGroup size="small" variant="outlined">
+          <Button onClick={() => addTextHandler('V')}>V</Button>
+          <Button onClick={() => addTextHandler('SB')}>SB</Button>
+          <Button onClick={() => addTextHandler('R')}>R</Button>
+          <Button onClick={() => addTextHandler('KK')}>KK</Button>
+          <Button onClick={() => addTextHandler('MM')}>MM</Button>
+          <Button onClick={() => addTextHandler('TG')}>TG</Button>
+        </ButtonGroup>
+      </Grid>
+    </Grid>
+    <Grid item container>
+      <Grid item xs={12}>
+        <ListItem key={idx}>
+          <ListItemText>
+            <TextField
+              name="recipeItem"
+              className={classes.recipeInput}
+              value={recipeLine}
+              onChange={setValue}
+              margin="normal"
+            />
+            <IconButton color="primary" onClick={acceptLineHandler}>
+              <CheckIcon />
+            </IconButton>
+            <IconButton color="primary" onClick={cancelEditHandler}>
+              <CancelIcon />
+            </IconButton>
+          </ListItemText>
+        </ListItem>
+      </Grid>
     </Grid>
   </Grid>
 );
-
 
 const VitaneleForm = ({
   classes,
@@ -220,7 +239,7 @@ const VitaneleForm = ({
 
 const normalizeLine = (str: string) => str.replace(/\+/g, ' + ').replace(/\s+/g, ' ');
 
-export default compose<VitaneleFormPrivateProps,{}>(
+export default compose<VitaneleFormPrivateProps, {}>(
   withStyles(styles),
   withState('lineOnEdit', 'setLineOnEdit', -1),
   withState('recipeLine', 'setRecipeLine', ''),

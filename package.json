@@ -1,6 +1,6 @@
 {
   "name": "grid-playground",
-  "version": "1.02.09",
+  "version": "1.02.23",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.7.2",

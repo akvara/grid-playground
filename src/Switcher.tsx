@@ -5,6 +5,7 @@ import VitaneleForm from './branches/VitaneleFormNew';
 import ThemeChangerApp from './branches/ThemeChanger/ThemeChangerRoot';
 import { Button, Grid, Paper, withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
+import SortForm from './branches/SortForm/SortForm';
 
 const styles = (theme: any) => {
   return {
@@ -23,12 +24,14 @@ enum Selections {
   Vitanele = 'Vitanele',
   ThemeChanger = 'ThemeChanger',
   GridPlayground = 'GridPlayground',
+  Sort = 'Sort',
 }
 
 const matrix = {
   [Selections.Vitanele]: <VitaneleForm />,
   [Selections.ThemeChanger]: <ThemeChangerApp />,
   [Selections.GridPlayground]: <GridPlayground />,
+  [Selections.Sort]: <SortForm />,
 };
 
 const Switcher = ({ classes }: any) => {
